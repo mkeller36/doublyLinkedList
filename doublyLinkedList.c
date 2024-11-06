@@ -53,7 +53,31 @@ void addNodeToFront(list *listToAddTo, int valueToAdd){
     if(listToAddTo->head != NULL){
         listToAddTo->head->prev = nodeToAdd;
     }
+    if(listToAddTo->tail = NULL){
+        listToAddTo->tail = nodeToAdd;
+    }
     listToAddTo->head = nodeToAdd;
+    printf("Good choice! I'll go ahead and add that to your list.\n");
+}
+
+void deleteNodeFromFront(list *listToDeleteFrom){
+    
+    if(listToDeleteFrom->head == NULL){
+        printf("No elements to delete from list.\n");
+    }
+    else if (listToDeleteFrom->head->next != NULL){
+        node *tmp = listToDeleteFrom->head;
+        listToDeleteFrom->head = listToDeleteFrom->head->next;
+        listToDeleteFrom->head->prev = NULL;
+        free(tmp);
+        tmp = NULL;
+    }
+    else if (listToDeleteFrom->head->next == NULL){ 
+        node *tmp = listToDeleteFrom->head;
+        listToDeleteFrom->head = NULL;
+        free(tmp);
+        tmp = NULL;        
+    }
 }
 
 void main(void){
@@ -73,6 +97,10 @@ void main(void){
             printf("What value do you want this node to have?\n");
             scanf("%d", &arg1);
             addNodeToFront(&l1,arg1);
+            break;
+        case 2:
+            printf("Deleting first node.\n");
+            deleteNodeFromFront(&l1);
             break;
         }
     }
