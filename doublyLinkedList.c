@@ -16,7 +16,12 @@ void printList(list *listToTraverse){
     node *nodeToPrint;
     nodeToPrint = listToTraverse->head;
     while(nodeToPrint != NULL){
-        printf("%d -> ", nodeToPrint->value);
+        if(listToTraverse->head == nodeToPrint){
+            printf("%d", nodeToPrint->value);
+        }
+        else{
+            printf(" -> %d", nodeToPrint->value);
+        }
         nodeToPrint = nodeToPrint->next;
     }
     printf("\n");
