@@ -20,11 +20,19 @@ void printList(list *listToTraverse){
             printf("%d", nodeToPrint->value);
         }
         else{
-            printf(" -> %d", nodeToPrint->value);
+            printf(" <-> %d", nodeToPrint->value);
         }
         nodeToPrint = nodeToPrint->next;
     }
     printf("\n");
+}
+
+void addNodeToFront(list *listToAddTo, int valueToAdd){
+    node *nodeToAdd = malloc(sizeof(node));
+    nodeToAdd->value = valueToAdd;
+    nodeToAdd->next = listToAddTo->head;
+    listToAddTo->head->prev = nodeToAdd;
+    listToAddTo->head = nodeToAdd;
 }
 
 void main(void){
@@ -44,4 +52,7 @@ void main(void){
     n3.value = 42;
 
     printList(&l1); 
+    addNodeToFront(&l1, 17);
+    printList(&l1);
+
 }
