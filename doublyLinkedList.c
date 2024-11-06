@@ -16,7 +16,7 @@ int optionsMenu(void){
     printf("Hello! I am here to help you store data in lists!\n");
     printf("What would you like to do?\n");
     printf("\t1. Add a node to the front of your list.\n");
-    printf("\t2. Rmove a node from the front of your list.\n");
+    printf("\t2. Remove a node from the front of your list.\n");
     printf("\t3. Add a node to the back of your list.\n");
     printf("\t4. Rmove a node from the back of your list.\n");
     printf("\t5. Remove a node based on value.\n");
@@ -61,7 +61,6 @@ void addNodeToFront(list *listToAddTo, int valueToAdd){
 }
 
 void deleteNodeFromFront(list *listToDeleteFrom){
-    
     if(listToDeleteFrom->head == NULL){
         printf("No elements to delete from list.\n");
     }
@@ -78,6 +77,19 @@ void deleteNodeFromFront(list *listToDeleteFrom){
         free(tmp);
         tmp = NULL;        
     }
+}
+
+void addNodeToBack(list *listToAddTo, int value){   
+    node *newNode = malloc(sizeof(node));
+    node *tmpNode;
+    tmpNode = listToAddTo->head;
+    newNode->value = value;
+    newNode->next = NULL;
+    while(tmpNode->next != NULL){
+        tmpNode = tmpNode->next;
+    }
+    newNode->prev = &tmpNode;
+    tmpNode->next = newNode;
 }
 
 void main(void){
@@ -101,6 +113,12 @@ void main(void){
         case 2:
             printf("Deleting first node.\n");
             deleteNodeFromFront(&l1);
+            break;
+        case 3:
+            printf("Let's add a node to the back of the list!\n");
+            printf("What value do you want this node to have?\n");
+            scanf("%d", &arg1);
+            addNodeToBack(&l1,arg1);
             break;
         }
     }
