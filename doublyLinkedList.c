@@ -12,9 +12,28 @@ typedef struct{
     node *tail;
 }list;
 
+int optionsMenu(void){
+    printf("Hello! I am here to help you store data in lists!\n");
+    printf("What would you like to do?\n");
+    printf("\t1. Add a node to the front of your list.\n");
+    printf("\t2. Rmove a node from the front of your list.\n");
+    printf("\t3. Add a node to the back of your list.\n");
+    printf("\t4. Rmove a node from the back of your list.\n");
+    printf("\t5. Remove a node based on value.\n");
+    printf("\t6. Remove a node based on index.\n");
+    printf("\t7. Exit.\n");
+    int choice;
+    scanf("%d", &choice);
+    return choice;
+}
+
 void printList(list *listToTraverse){
     node *nodeToPrint;
     nodeToPrint = listToTraverse->head;
+    if(nodeToPrint == NULL){
+        printf("Your list is empty, try adding some values.\n");
+        return;
+    }
     while(nodeToPrint != NULL){
         if(listToTraverse->head == nodeToPrint){
             printf("%d", nodeToPrint->value);
@@ -31,28 +50,31 @@ void addNodeToFront(list *listToAddTo, int valueToAdd){
     node *nodeToAdd = malloc(sizeof(node));
     nodeToAdd->value = valueToAdd;
     nodeToAdd->next = listToAddTo->head;
-    listToAddTo->head->prev = nodeToAdd;
+    if(listToAddTo->head != NULL){
+        listToAddTo->head->prev = nodeToAdd;
+    }
     listToAddTo->head = nodeToAdd;
 }
 
 void main(void){
     list l1;
-    node n1, n2, n3;
+    l1.head = NULL;
+    l1.tail = NULL;
 
-    l1.head = &n1;
-    n1.next = &n2;
-    n1.prev = NULL;
-    n2.next = &n3;
-    n2.prev = &n1;
-    n3.prev = &n2;
-    n3.next = NULL;
-
-    n1.value = 420;
-    n2.value = 69;
-    n3.value = 42;
-
-    printList(&l1); 
-    addNodeToFront(&l1, 17);
-    printList(&l1);
-
+    int option = 0;
+    int arg1 = 0;
+    int arg2 = 0;
+    while((option >= 0) && (option <= 6)){
+        printList(&l1);
+        option = optionsMenu();
+        switch (option){
+        case 1:
+            printf("Let's add a node to the front of the list!\n");
+            printf("What value do you want this node to have?\n");
+            scanf("%d", &arg1);
+            addNodeToFront(&l1,arg1);
+            break;
+        }
+    }
+    printf("Goodbye\n");
 }
