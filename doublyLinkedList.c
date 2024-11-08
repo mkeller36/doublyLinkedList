@@ -57,7 +57,6 @@ void addNodeToFront(list *listToAddTo, int valueToAdd){
         listToAddTo->tail = nodeToAdd;
     }
     listToAddTo->head = nodeToAdd;
-    printf("Good choice! I'll go ahead and add that to your list.\n");
 }
 
 void deleteNodeFromFront(list *listToDeleteFrom){
@@ -82,14 +81,34 @@ void deleteNodeFromFront(list *listToDeleteFrom){
 void addNodeToBack(list *listToAddTo, int value){   
     node *newNode = malloc(sizeof(node));
     node *tmpNode;
-    tmpNode = listToAddTo->head;
     newNode->value = value;
+    if(listToAddTo->head == NULL && listToAddTo->tail == NULL){
+        listToAddTo->head = newNode;
+        listToAddTo->tail = newNode;
+        return;
+    }
+    tmpNode = listToAddTo->head;
     newNode->next = NULL;
     while(tmpNode->next != NULL){
         tmpNode = tmpNode->next;
     }
     newNode->prev = &tmpNode;
     tmpNode->next = newNode;
+    listToAddTo->tail = newNode;
+}
+
+void deleteNodeFromBack(list *listToDeleFrom){
+    node *tmpNode;
+    node *tmpNode2 = malloc(sizeof(node));
+    tmpNode = listToDeleFrom->head;
+    while(tmpNode->next != NULL){
+        tmpNode = tmpNode->next;
+    }
+    tmpNode2 = tmpNode->prev;
+    listToDeleFrom->tail = tmpNode2;
+    tmpNode2->next = NULL;
+    free(tmpNode);
+    tmpNode = NULL;
 }
 
 void main(void){
@@ -108,6 +127,7 @@ void main(void){
             printf("Let's add a node to the front of the list!\n");
             printf("What value do you want this node to have?\n");
             scanf("%d", &arg1);
+            printf("Good choice! I'll go ahead and add that to your list.\n");
             addNodeToFront(&l1,arg1);
             break;
         case 2:
@@ -118,7 +138,12 @@ void main(void){
             printf("Let's add a node to the back of the list!\n");
             printf("What value do you want this node to have?\n");
             scanf("%d", &arg1);
+            printf("Good choice! I'll go ahead and add that to your list.\n");
             addNodeToBack(&l1,arg1);
+            break;
+        case 4:
+            printf("Deleting last node.\n");
+            deleteNodeFromBack(&l1);
             break;
         }
     }
