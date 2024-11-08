@@ -98,17 +98,17 @@ void addNodeToBack(list *listToAddTo, int value){
 }
 
 void deleteNodeFromBack(list *listToDeleFrom){
-    node *tmpNode;
-    node *tmpNode2 = malloc(sizeof(node));
-    tmpNode = listToDeleFrom->head;
-    while(tmpNode->next != NULL){
-        tmpNode = tmpNode->next;
+    node *tmp = malloc(sizeof(node));
+    node *tmp2 = malloc(sizeof(node));
+    tmp = listToDeleFrom->head;
+    while(tmp->next != NULL){
+        tmp2 = tmp;
+        tmp = tmp->next;
     }
-    tmpNode2 = tmpNode->prev;
-    listToDeleFrom->tail = tmpNode2;
-    tmpNode2->next = NULL;
-    free(tmpNode);
-    tmpNode = NULL;
+    tmp2->next = NULL;
+    listToDeleFrom->tail = tmp2;
+    free(tmp);
+    tmp = NULL;
 }
 
 void main(void){
