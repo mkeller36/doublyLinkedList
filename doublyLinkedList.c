@@ -18,7 +18,7 @@ int optionsMenu(void){
     printf("\t1. Add a node to the front of your list.\n");
     printf("\t2. Remove a node from the front of your list.\n");
     printf("\t3. Add a node to the back of your list.\n");
-    printf("\t4. Rmove a node from the back of your list.\n");
+    printf("\t4. Remove a node from the back of your list.\n");
     printf("\t5. Remove a node based on value.\n");
     printf("\t6. Remove a node based on index.\n");
     printf("\t7. Exit.\n");
@@ -109,6 +109,22 @@ void deleteNodeFromBack(list *listToDeleFrom){
     listToDeleFrom->tail = tmp2;
     free(tmp);
     tmp = NULL;
+}
+
+void deleteNodeByValue(list *listToDeleteFrom, int valueToDelete){
+    node *tmp = malloc(sizeof(node));
+    node *tmp2 = malloc(sizeof(node));
+    tmp = listToDeleteFrom->head;
+    while(tmp->value != valueToDelete){
+        tmp2 = tmp;
+        tmp = tmp->next;
+        if(tmp->next != NULL){
+            printf("We could not find your value\n");
+            break;
+        }
+    }
+    tmp2->next = tmp->next;
+    
 }
 
 void main(void){
